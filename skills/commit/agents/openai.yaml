@@ -1,0 +1,7 @@
+interface:
+  display_name: "Git Commit Helper"
+  short_description: "Auto-generate a good commit message"
+  default_prompt: "Use $commit to create a git commit message based on staged changes."
+
+policy:
+  allow_implicit_invocation: true

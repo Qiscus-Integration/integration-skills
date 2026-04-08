@@ -1,0 +1,7 @@
+interface:
+  display_name: "Ruby on Rails Backend"
+  short_description: "Rails backend rules for this repository"
+  default_prompt: "Use $ruby-rails to implement or review a Rails backend change in this repository."
+
+policy:
+  allow_implicit_invocation: true
