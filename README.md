@@ -4,13 +4,23 @@ A collection of skills for **Claude Code** and **Codex (OpenAI CLI)** — instal
 
 ## Installation
 
-### Option 1 — Single `curl` command (Recommended)
+### Option 1 — Terminal Install by OS
 
-No `git` required. Paste this in your terminal:
+Use the command that matches your environment:
+
+1. **macOS / Linux / Windows WSL / Git Bash**
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/Qiscus-Integration/integration-skills/main/install.sh | bash
 ```
+
+2. **Windows PowerShell**
+
+```powershell
+irm https://raw.githubusercontent.com/Qiscus-Integration/integration-skills/main/install.ps1 | iex
+```
+
+The PowerShell installer uses an interactive menu with arrow keys, `Space`, and `Enter`.
 
 The script will interactively ask:
 
@@ -54,9 +64,19 @@ cp -r integration-skills/skills/commit ~/.claude/skills/
 
 Remove installed skills with the interactive uninstaller:
 
+**macOS / Linux / Windows WSL / Git Bash**
+
 ```bash
 curl -fsSL https://raw.githubusercontent.com/Qiscus-Integration/integration-skills/main/uninstall.sh | bash
 ```
+
+**Windows PowerShell**
+
+```powershell
+irm https://raw.githubusercontent.com/Qiscus-Integration/integration-skills/main/uninstall.ps1 | iex
+```
+
+The PowerShell uninstaller also uses an interactive menu with arrow keys, `Space`, and `Enter`.
 
 The script will ask:
 

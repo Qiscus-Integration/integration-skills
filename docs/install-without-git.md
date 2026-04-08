@@ -4,26 +4,50 @@ This guide is for users who don't have `git` or are not comfortable with the ter
 
 ---
 
-## Method 1: Single Terminal Command (Recommended)
+## Method 1: Terminal Install by Operating System
 
-The easiest way. Open your terminal and paste:
+Choose the instructions that match your operating system.
+
+### macOS
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/Qiscus-Integration/integration-skills/main/install.sh | bash
 ```
 
-The script will guide you interactively — just answer the prompts.
+### Linux
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/Qiscus-Integration/integration-skills/main/install.sh | bash
+```
+
+### Windows with WSL or Git Bash
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/Qiscus-Integration/integration-skills/main/install.sh | bash
+```
+
+### Windows PowerShell
+
+```powershell
+irm https://raw.githubusercontent.com/Qiscus-Integration/integration-skills/main/install.ps1 | iex
+```
+
+This runs the native PowerShell installer and does not require WSL or Git Bash.
+It uses an interactive menu with arrow keys, `Space`, and `Enter`.
 
 It installs the full skill folder, including companion files such as `agents/`, `references/`, and `scripts/` when they exist.
 
 ### Requirements
 
-- `curl` must be installed (comes pre-installed on Mac, Linux, and Windows WSL)
+- `curl` and `bash` are required for macOS, Linux, WSL, and Git Bash installation
+- PowerShell installation uses `irm` and does not require WSL
 
-### How to Open a Terminal
+### How to Open a Compatible Terminal
 
 - **Mac:** Press `Cmd + Space`, type "Terminal", press Enter
+- **Windows (PowerShell):** Press `Win`, type "PowerShell", press Enter
 - **Windows (WSL):** Press `Win`, type "Ubuntu" or "WSL", press Enter
+- **Windows (Git Bash):** Open Git Bash
 - **Linux:** Press `Ctrl + Alt + T`
 
 ---
@@ -119,7 +143,7 @@ Type `$commit` — the skill will appear in the list.
 ### `curl` not found
 
 - **Mac:** `brew install curl`
-- **Windows:** Use WSL or download from [https://curl.se/windows](https://curl.se/windows)
+- **Windows:** Use the native PowerShell installer, WSL, or Git Bash
 
 ---
 
@@ -127,9 +151,19 @@ Type `$commit` — the skill will appear in the list.
 
 If you want to remove installed skills later, run:
 
+### macOS / Linux / Windows WSL / Git Bash
+
 ```bash
 curl -fsSL https://raw.githubusercontent.com/Qiscus-Integration/integration-skills/main/uninstall.sh | bash
 ```
+
+### Windows PowerShell
+
+```powershell
+irm https://raw.githubusercontent.com/Qiscus-Integration/integration-skills/main/uninstall.ps1 | iex
+```
+
+This uses the same interactive menu style in PowerShell.
 
 The uninstaller will let you choose:
 
