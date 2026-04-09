@@ -1,89 +1,85 @@
 # Integration Skills
 
-A collection of skills for **Claude Code** and **Codex (OpenAI CLI)** — installable without `git`.
+A curated collection of reusable agent skills for [Claude Code](https://claude.ai/code) and [Codex (OpenAI CLI)](https://platform.openai.com/docs/codex).
+Skills extend AI assistants with structured, repeatable workflows — from writing commit messages to generating full product specifications.
+
+---
+
+## Available Skills
+
+### Product Workflow
+
+Four skills that form an end-to-end product delivery chain — each role hands off a file to the next.
+
+```bash
+[PM]       $generate-prd   →  docs/features/[slug]/prd.md
+                                         ↓
+[Designer] $design-spec    →  docs/features/[slug]/design-spec.md
+                                         ↓
+[QA]       $qa-testplan    →  docs/features/[slug]/qa-testplan.md
+                                         ↓
+[Dev]      $dev-execute    →  docs/features/[slug]/dev-plan.md
+```
+
+| Skill | Role | What it produces | Docs |
+| ----- | ---- | ---------------- | ---- |
+| `generate-prd` | Product Manager | PRD with user journeys, data model, API contracts, and user stories | [docs/generate-prd.md](docs/generate-prd.md) |
+| `design-spec` | UI/UX Designer | Screen inventory, component list, interaction states, Figma structure, and handoff notes | [docs/design-spec.md](docs/design-spec.md) |
+| `qa-testplan` | QA Engineer | Manual test cases, Gherkin scenarios, automation spec, API tests, and sign-off checklist | [docs/qa-testplan.md](docs/qa-testplan.md) |
+| `dev-execute` | Developer | Task breakdown, architecture decisions, DB migrations, API plan, frontend plan, and definition of done | [docs/dev-execute.md](docs/dev-execute.md) |
+
+### General Skills
+
+| Skill | What it does | Docs |
+| ----- | ------------ | ---- |
+| `commit` | Generates a Conventional Commits message from staged changes | [docs/commit.md](docs/commit.md) |
+| `ruby-rails` | Rails backend conventions for models, controllers, services, and specs | [docs/ruby-rails.md](docs/ruby-rails.md) |
+
+---
 
 ## Installation
 
-### Option 1 — Terminal Install by OS
-
-Use the command that matches your environment:
-
-1. **macOS / Linux / Windows WSL / Git Bash**
+### Option 1 — Terminal (macOS / Linux / Windows WSL / Git Bash)
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/Qiscus-Integration/integration-skills/main/install.sh | bash
 ```
 
-2. **Windows PowerShell**
+### Option 2 — Windows PowerShell
 
 ```powershell
 irm https://raw.githubusercontent.com/Qiscus-Integration/integration-skills/main/install.ps1 | iex
 ```
 
-The PowerShell installer uses an interactive menu with arrow keys, `Space`, and `Enter`.
+The installer will ask:
 
-The script will interactively ask:
-
-1. Which AI tool to install for (Claude Code / Codex / Both)
-2. Scope: Global (all projects) or Project (current project only)
+1. Which AI tool to install for — Claude Code, Codex, or both
+2. Scope — Global (all projects) or Project (current directory only)
 3. Which skills to install
 
-It installs the full skill folder, including optional companion files such as `agents/`, `references/`, and `scripts/`.
+It copies the full skill folder, including all companion files (`agents/`, `references/`, `scripts/`).
 
-### Option 2 — Download ZIP via Browser
+### Option 3 — Manual (no terminal required)
 
-No terminal required:
+1. Download this repository as a ZIP from GitHub: **Code → Download ZIP**
+2. Extract the ZIP and open the `skills/` folder
+3. Copy the skill folder(s) you want to the target location:
 
-1. Open the repository page on GitHub
-2. Click **Code** → **Download ZIP**
-3. Extract the downloaded ZIP
-4. Copy the skill folder(s) you want to the appropriate directory:
+| Tool | Scope | Location |
+| ------ | ------- | ---------- |
+| Claude Code | Global | `~/.claude/skills/[skill-name]/` |
+| Claude Code | Project | `.claude/skills/[skill-name]/` |
+| Codex | Global | `~/.codex/skills/[skill-name]/` |
+| Codex | Project | `.codex/skills/[skill-name]/` |
 
-**Claude Code:**
+> **Note:** `~/.claude/skills/` is a hidden directory. On macOS press `Cmd + Shift + .` in Finder to show hidden folders. On Windows, enable "Hidden items" in the Explorer View tab.
 
-```text
-~/.claude/skills/commit/       ← global (all projects)
-.claude/skills/commit/         ← project scope (inside your project folder)
-```
-
-**Codex:**
-
-```text
-~/.codex/skills/commit/        ← global
-.codex/skills/commit/          ← project scope
-```
-
-### Option 3 — For Developers (with git)
+### Option 4 — Git clone
 
 ```bash
 git clone https://github.com/Qiscus-Integration/integration-skills.git
 cp -r integration-skills/skills/commit ~/.claude/skills/
 ```
-
-## Uninstall
-
-Remove installed skills with the interactive uninstaller:
-
-**macOS / Linux / Windows WSL / Git Bash**
-
-```bash
-curl -fsSL https://raw.githubusercontent.com/Qiscus-Integration/integration-skills/main/uninstall.sh | bash
-```
-
-**Windows PowerShell**
-
-```powershell
-irm https://raw.githubusercontent.com/Qiscus-Integration/integration-skills/main/uninstall.ps1 | iex
-```
-
-The PowerShell uninstaller also uses an interactive menu with arrow keys, `Space`, and `Enter`.
-
-The script will ask:
-
-1. Which AI tool to remove skills from
-2. Scope: Global or Project
-3. Which installed skills to remove
-4. Final confirmation before deleting the selected skill folders
 
 ---
 
@@ -91,28 +87,58 @@ The script will ask:
 
 ### Claude Code
 
-After installation, invoke a skill with `/skill-name`:
+Invoke a skill by typing its name as a slash command:
 
-```text
+```bash
 /commit
+/generate-prd
 ```
 
 ### Codex
 
-Skills are automatically available when Codex starts. You can also invoke explicitly:
+Skills are available automatically on startup. You can also invoke explicitly:
 
-```text
+```bash
 $commit
+$generate-prd
 ```
+
+---
+
+## Uninstall
+
+### macOS / Linux / Windows WSL / Git Bash
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/Qiscus-Integration/integration-skills/main/uninstall.sh | bash
+```
+
+### Windows PowerShell
+
+```powershell
+irm https://raw.githubusercontent.com/Qiscus-Integration/integration-skills/main/uninstall.ps1 | iex
+```
+
+The uninstaller will ask which skills to remove, from which tool, and at which scope. It requires a confirmation before deleting anything.
 
 ---
 
 ## Contributing
 
-See [docs/creating-skills.md](docs/creating-skills.md) for a guide on creating new skills.
+See [docs/creating-skills.md](docs/creating-skills.md) for a full guide on writing and submitting new skills.
+
+Quick checklist before opening a PR:
+
+- [ ] Folder name matches the `name` field in `SKILL.md` frontmatter
+- [ ] `description` in `SKILL.md` explains **when** the skill triggers, not just what it does
+- [ ] Skill has been tested end-to-end in Claude Code or Codex
+- [ ] No sensitive files (`.env`, credentials) inside the skill folder
+- [ ] If the skill reads companion files, they are listed in a `## Bundled Resources` section
 
 ---
 
 ## Need Help?
 
-See [docs/install-without-git.md](docs/install-without-git.md) for a detailed installation guide without `git`.
+- **Installation without git:** [docs/install-without-git.md](docs/install-without-git.md)
+- **Writing a new skill:** [docs/creating-skills.md](docs/creating-skills.md)
+- **Issues and feedback:** open an issue on GitHub
