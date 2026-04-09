@@ -24,7 +24,7 @@ Depending on the target agent setup, this skill can create:
 
 - `AGENTS.md`
 - `CLAUDE.md`
-- Shared memory folders such as `.ai-memory/`, `.claude/memory/`, or `.codex/memory/`
+- Shared memory folders such as `.project-memory/`, `.claude/memory/`, or `.codex/memory/`
 - Task handoff files such as `active.md` and `done.md`
 
 ---
@@ -35,7 +35,7 @@ Depending on the target agent setup, this skill can create:
 | ----- | ----------- | --------------- |
 | Claude Code only | `CLAUDE.md` | `.claude/memory/` and `.claude/tasks/` |
 | Codex only | `AGENTS.md` | `.codex/memory/` and `.codex/tasks/` |
-| Mixed team | `CLAUDE.md` + `AGENTS.md` | Shared `.ai-memory/` |
+| Mixed team | `CLAUDE.md` + `AGENTS.md` | Shared `.project-memory/` |
 
 ---
 

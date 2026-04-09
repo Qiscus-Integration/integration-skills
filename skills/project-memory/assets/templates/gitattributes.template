@@ -1,12 +1,10 @@
 # .gitattributes — AI Memory merge strategy
-#
 # Add this to your project root .gitattributes file.
-# Prevents merge conflicts on shared AI memory files.
 
 # Append-only files: Git auto-merges both versions (no conflict)
 .project-memory/tasks/done.md merge=union
-CLAUDE.md merge=union
-AGENTS.md merge=union
+.claude/CLAUDE.md merge=union
+.codex/AGENTS.md merge=union
 
 # MCP memory JSON: keep local on conflict — agent reconciles next session
 .project-memory/mcp/memory.json merge=ours

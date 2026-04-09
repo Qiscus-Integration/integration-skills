@@ -13,13 +13,15 @@ setup-hooks:
 	@cp scripts/hooks/pre-commit .git/hooks/pre-commit
 	@chmod +x .git/hooks/pre-commit
 	@echo "✅ pre-commit hook installed."
+	@echo "   Source: scripts/hooks/pre-commit"
+	@echo "   Installed: .git/hooks/pre-commit"
 
 ## Manually check if AI memory needs updating
 check-memory:
 	@SRC=$$(git diff --cached --name-only | grep -c "^app/\|^src/\|^resources/" || true); \
-	MEM=$$(git diff --cached --name-only | grep -c "^\.ai-memory/" || true); \
+	MEM=$$(git diff --cached --name-only | grep -c "^\.project-memory/" || true); \
 	if [ "$$SRC" -gt 2 ] && [ "$$MEM" -eq 0 ]; then \
-		echo "⚠️  Source files changed but .ai-memory/ not updated."; \
+		echo "⚠️  Source files changed but .project-memory/ not updated."; \
 	else \
 		echo "✅ AI memory looks up to date."; \
 	fi
@@ -29,4 +31,10 @@ help:
 	@echo "Available commands:"
 	@echo "  make setup        — Install Git hooks (run after git clone)"
 	@echo "  make check-memory — Check if AI memory needs updating"
+	@echo ""
+	@echo "AI memory structure:"
+	@echo "  .claude/CLAUDE.md           — Claude Code entry point"
+	@echo "  .codex/AGENTS.md            — Codex CLI entry point"
+	@echo "  .project-memory/mcp/memory.json  — Shared MCP memory file"
+	@echo "  .project-memory/tasks/active/    — Active tasks (one file per developer)"
 	@echo ""

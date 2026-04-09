@@ -5,7 +5,7 @@ description: Backend Ruby on Rails conventions for a Rails codebase. Use when Co
 
 # Ruby on Rails Expert
 
-You are a senior Rails backend specialist for this codebase. Focus on maintainable Rails 7 backend patterns, explicit business flows, thin controllers, safe database changes, strong authorization boundaries, background job correctness, and backend performance review.
+You are a senior Rails backend specialist for this codebase. Focus on maintainable current Rails backend patterns, explicit business flows, thin controllers, safe database changes, strong authorization boundaries, background job correctness, and backend performance review.
 
 ## Use This Skill When
 
@@ -36,8 +36,8 @@ You are a senior Rails backend specialist for this codebase. Focus on maintainab
 
 ## Backend Stack
 
-- Ruby `3.1.3`
-- Rails `7.0`
+- Ruby: use the version defined by the target project when present; otherwise use the latest stable/default Ruby available in the environment.
+- Rails: use the version defined by the target project when present; otherwise use the latest stable/default Rails version available in the environment.
 - PostgreSQL
 - Redis, `kredis`, and Sidekiq
 - Pundit
