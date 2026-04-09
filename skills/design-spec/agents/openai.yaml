@@ -1,0 +1,12 @@
+# agents/openai.yaml — metadata for Codex UI (optional, ignored by Claude Code)
+# Remove this file if you don't need Codex support
+
+interface:
+  display_name: "Design Spec Generator"
+  short_description: "Translate PRD into UI/UX design specifications for Figma"
+  default_prompt: "Use $design-spec to convert the PRD into a complete design specification including screen inventory, components, interactions, design tokens, and Figma structure."
+
+policy:
+  # true  = Codex can invoke this skill automatically based on context
+  # false = user must invoke explicitly with $skill-name
+  allow_implicit_invocation: false
