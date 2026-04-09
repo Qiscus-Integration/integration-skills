@@ -311,6 +311,28 @@ Final check:
 - Scope has not drifted.
 - Requirements, stories, data model, and API contract are consistent.
 
+### Phase 11: Write Output File
+
+Goal:
+- Persist the PRD to disk so the next role (UI/UX Designer) can consume it.
+
+Instructions:
+- Ask the user for `feature_slug` (e.g., `user-authentication`, `payment-checkout`) if not already known.
+- Write the complete PRD output to: `docs/features/[feature-slug]/prd.md`
+- Create the directory if it does not exist.
+
+Output file structure:
+```
+docs/features/[feature-slug]/
+└── prd.md   ← written by this skill
+```
+
+Confirm to the user:
+```
+PRD saved to: docs/features/[feature-slug]/prd.md
+Next step: hand this file to the UI/UX Designer and ask them to run $design-spec
+```
+
 ## Maturity Rules
 
 ### Must Do
@@ -341,6 +363,22 @@ Before finishing, verify that the PRD includes:
 - Review findings and applied fixes
 - User stories
 - Final structured output in the requested format
+
+## File I/O Convention
+
+This skill is **step 1 of 4** in the product workflow:
+
+```
+[PM] generate-prd  →  prd.md
+                         ↓
+[Designer] design-spec reads prd.md  →  design-spec.md
+                                           ↓
+[QA] qa-testplan reads prd.md + design-spec.md  →  qa-testplan.md
+                                                       ↓
+[Dev] dev-execute reads all 3 files  →  dev-plan.md
+```
+
+Output file: `docs/features/[feature-slug]/prd.md`
 
 ## Bundled Resources
 
