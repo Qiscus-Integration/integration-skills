@@ -33,14 +33,14 @@ feature/order-v2 branch:
 
 Split `active.md` per developer to avoid conflicts:
 
-```bas
+```bash
 .claude/tasks/
 ├── active-alice.md      ← Owned by @alice
 ├── active-bob.md        ← Owned by @bob
 └── done.md              ← Shared, updated when tasks complete
 ```
 
-Add to `CLAUDE.md`:
+Add to `.claude/CLAUDE.md`:
 
 ```markdown
 ## Active Tasks
@@ -74,7 +74,7 @@ Add to `.gitattributes` to make merge conflicts easier to resolve:
 
 ```bash
 .claude/tasks/done.md merge=union
-.claude/CLAUDE.md merge=union
+.claude/.claude/CLAUDE.md merge=union
 ```
 
 `merge=union` automatically combines both versions without a conflict (ideal for append-only files).
