@@ -38,8 +38,8 @@ checkbox_select() {
     IFS= read -rsn1 key </dev/tty
     if [[ "$key" == $'\x1b' ]]; then
       local tmp=""
-      IFS= read -rsn1 -t 0.1 tmp </dev/tty && key+="$tmp" || true
-      IFS= read -rsn1 -t 0.1 tmp </dev/tty && key+="$tmp" || true
+      IFS= read -rsn2 -t 1 tmp </dev/tty 2>/dev/null || true
+      key+="$tmp"
     fi
 
     case "$key" in
@@ -100,8 +100,8 @@ single_select() {
     IFS= read -rsn1 key </dev/tty
     if [[ "$key" == $'\x1b' ]]; then
       local tmp=""
-      IFS= read -rsn1 -t 0.1 tmp </dev/tty && key+="$tmp" || true
-      IFS= read -rsn1 -t 0.1 tmp </dev/tty && key+="$tmp" || true
+      IFS= read -rsn2 -t 1 tmp </dev/tty 2>/dev/null || true
+      key+="$tmp"
     fi
 
     case "$key" in

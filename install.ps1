@@ -24,15 +24,22 @@ function Write-ErrorMessage($Message) {
 
 function Render-Menu {
     param(
-        [int]$StartRow,
         [string[]]$Options,
         [int]$Cursor,
         [bool[]]$Selected,
-        [bool]$AllowMultiple
+        [bool]$AllowMultiple,
+        [switch]$First
     )
 
-    [Console]::SetCursorPosition(0, $StartRow)
+    if (-not $First) {
+        # Move cursor up relative to current position — more reliable than
+        # SetCursorPosition(0, $startRow) which breaks when terminal scrolls
+        $n = $Options.Count
+        [Console]::Write("`e[${n}A`e[0G")
+    }
+
     $width = [Console]::WindowWidth
+    if ($width -le 0) { $width = 80 }
 
     for ($i = 0; $i -lt $Options.Count; $i++) {
         $arrow  = if ($i -eq $Cursor) { ">" } else { " " }
@@ -43,7 +50,7 @@ function Render-Menu {
             $line = "  $arrow ( ) $($Options[$i])"
         }
         # Pad to window width to overwrite any previous longer line
-        $line = $line.PadRight($width - 1)
+        $line = $line.PadRight([Math]::Max(0, $width - 1))
         if ($i -eq $Cursor) {
             Write-Host $line -ForegroundColor Cyan
         } else {
@@ -160,8 +167,7 @@ function Select-Many {
         [Console]::CursorVisible = $false
         Write-Host "  $Title" -ForegroundColor White
         Write-Host "  ↑↓ navigate   space select/deselect   enter confirm" -ForegroundColor DarkGray
-        $startRow = [Console]::CursorTop
-        Render-Menu -StartRow $startRow -Options $Options -Cursor $cursor -Selected $selected -AllowMultiple $true
+        Render-Menu -Options $Options -Cursor $cursor -Selected $selected -AllowMultiple $true -First
 
         while ($true) {
             $action = Read-MenuAction
@@ -179,7 +185,7 @@ function Select-Many {
                     }
                 }
             }
-            Render-Menu -StartRow $startRow -Options $Options -Cursor $cursor -Selected $selected -AllowMultiple $true
+            Render-Menu -Options $Options -Cursor $cursor -Selected $selected -AllowMultiple $true
         }
     } catch {
         [Console]::CursorVisible = $true
@@ -199,8 +205,7 @@ function Select-One {
         [Console]::CursorVisible = $false
         Write-Host "  $Title" -ForegroundColor White
         Write-Host "  ↑↓ navigate   enter select" -ForegroundColor DarkGray
-        $startRow = [Console]::CursorTop
-        Render-Menu -StartRow $startRow -Options $Options -Cursor $cursor -Selected $selected -AllowMultiple $false
+        Render-Menu -Options $Options -Cursor $cursor -Selected $selected -AllowMultiple $false -First
 
         while ($true) {
             $action = Read-MenuAction
@@ -213,7 +218,7 @@ function Select-One {
                     return $Options[$cursor]
                 }
             }
-            Render-Menu -StartRow $startRow -Options $Options -Cursor $cursor -Selected $selected -AllowMultiple $false
+            Render-Menu -Options $Options -Cursor $cursor -Selected $selected -AllowMultiple $false
         }
     } catch {
         [Console]::CursorVisible = $true
