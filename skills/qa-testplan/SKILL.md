@@ -40,7 +40,9 @@ Input files:
 - `docs/features/[feature-slug]/prd.md` (required)
 - `docs/features/[feature-slug]/design-spec.md` (required — provides screen inventory and interaction flows)
 
-Output file: `docs/features/[feature-slug]/qa-testplan.md`
+Output files:
+- `docs/features/[feature-slug]/qa-testplan.md` (always)
+- `docs/features/[feature-slug]/qa-testplan.csv` (when `output_format = csv` or `both`)
 
 ## Inputs
 
@@ -67,7 +69,7 @@ Before starting any phase:
 
 - `test_framework` — automation framework to use (e.g., Cypress, Playwright, Jest, Appium, Postman/Newman)
 - `test_scope` — `manual`, `automation`, or `both`
-- `output_format` — `notion`, `table`, or `markdown`
+- `output_format` — `notion`, `table`, `markdown`, `csv`, or `both` (`both` = markdown + CSV)
 - `mode` — `auto` or `interactive`
 
 If inputs are missing, infer what is safe and ask focused questions for critical gaps.
@@ -400,6 +402,32 @@ If `output_format = table`:
 If `output_format = markdown`:
 - Return clean markdown document for Confluence or GitHub wiki.
 
+If `output_format = csv` or `output_format = both`:
+- Open `references/csv-template.md` and follow all instructions there.
+- Generate a CSV file with the exact column order defined in that reference.
+- Column rules:
+  - `No`: sequential integer starting at 1
+  - `Key Feature in TRA/ SRS`: feature/module name from PRD
+  - `Scenario`: short scenario label
+  - `Description Scenario`: full description in Bahasa Indonesia
+  - `PREREQUISITE`: login role + open page, in Bahasa Indonesia
+  - `CASE TYPE`: `Positive` or `Negative`
+  - `Test Case`: specific test action label
+  - `Test Data`: role or input values used
+  - `Step`: numbered steps, each on a new line within the quoted cell. **Always start with standard opening steps for the first test case of each new feature:**
+    ```
+    1. Login sebagai {Role}
+    2. Buka {URL / Menu path}
+    3. Verifikasi halaman {feature name} berhasil terbuka
+    ```
+    Then continue with the specific test interaction steps.
+  - `EXPECTED RESULT`: what should happen after all steps complete
+  - `ENV`: `Staging` (default for new features)
+  - Columns 12–19 (execution fields): leave blank — filled by tester
+  - Header row columns 21–24: `TOTAL TEST CASE,{COUNT},,TOTAL TEST CASE`
+- Save CSV to `docs/features/[feature-slug]/qa-testplan.csv`
+- If `output_format = both`, also write the markdown file.
+
 Final check:
 - All user stories covered
 - All edge cases from PRD have negative test cases
@@ -413,13 +441,19 @@ Goal:
 - Persist the QA test plan to disk so the next role (Developer) can consume it.
 
 Instructions:
-- Write the complete test plan output to: `docs/features/[feature-slug]/qa-testplan.md`
-- The file must include all phases: test strategy, manual test cases, Gherkin scenarios, automation spec, API tests, regression map, and sign-off checklist.
-- Do not truncate any test cases.
+- Always write: `docs/features/[feature-slug]/qa-testplan.md`
+  - Must include all phases: test strategy, manual test cases, Gherkin scenarios, automation spec, API tests, regression map, and sign-off checklist.
+  - Do not truncate any test cases.
+- If `output_format = csv` or `output_format = both`:
+  - Open `references/csv-template.md` first.
+  - Generate and write: `docs/features/[feature-slug]/qa-testplan.csv`
+  - Follow all column rules and step format rules from the reference.
+  - Ensure every feature's first test case starts with the standard opening steps.
 
 Confirm to the user:
 ```
 QA test plan saved to: docs/features/[feature-slug]/qa-testplan.md
+CSV export saved to:   docs/features/[feature-slug]/qa-testplan.csv  (if applicable)
 Next step: hand prd.md + design-spec.md + qa-testplan.md to the Developer and ask them to run $dev-execute
 ```
 
@@ -456,4 +490,5 @@ Before finishing, verify:
 
 - `references/bug-severity-guide.md` — bug severity and priority classification guide.
 - `references/automation-patterns.md` — common automation test patterns and anti-patterns.
+- `references/csv-template.md` — CSV column structure, step format rules, and sample rows for CSV export.
 - Do not assume these files are loaded. Open them explicitly when needed.
