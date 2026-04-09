@@ -1,0 +1,34 @@
+# Task: [TASK TITLE]
+
+<!-- File naming: [your-name]-[task-slug].md  e.g. alice-order-refactor.md -->
+<!-- One file per task. Delete this file when done and append a summary to done.md -->
+
+**Status**: 🔄 In Progress
+**Developer**: @[your-name]
+**Branch**: `feature/[branch-name]`
+**Started**: [YYYY-MM-DD]
+**Target**: [YYYY-MM-DD or TBD]
+
+## Progress
+- [x] [Completed step]
+- [x] [Completed step]
+- [ ] [Pending step]
+- [ ] [Pending step]
+
+## Files Changed
+```
+app/Models/Example.php          ← newly created
+app/Services/ExampleService.php ← modified (added method X)
+```
+
+## Technical Decisions
+- [e.g. Using DB transaction because two tables are updated simultaneously]
+- [e.g. Chose event-based approach to decouple from OrderService]
+
+## Gotchas / Watch Out For
+- [e.g. Bug in Repository::findBy() when ID is null — not fixed yet]
+- [e.g. Migration must be run before testing locally]
+
+## Next Steps (for next session or developer taking over)
+1. [First concrete action to take]
+2. [Next action]

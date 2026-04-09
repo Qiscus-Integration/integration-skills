@@ -1,0 +1,8 @@
+# Done Tasks
+
+<!-- Append-only log. Never edit existing lines — only add new ones at the bottom.
+     This format minimizes merge conflicts with merge=union strategy. -->
+
+<!-- Format: [YYYY-MM-DD HH:MM] @developer — Task: description. Branch/PR: #N -->
+
+[2025-04-09 10:00] @alice — Setup initial project memory structure. PR #1.

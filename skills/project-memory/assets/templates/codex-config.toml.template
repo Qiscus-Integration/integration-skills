@@ -1,0 +1,9 @@
+# .codex/config.toml — Codex CLI MCP Memory configuration
+# Commit this file to the repo so all developers get the same setup.
+
+[mcp_servers.memory]
+command = "npx"
+args = ["-y", "@modelcontextprotocol/server-memory"]
+
+[mcp_servers.memory.env]
+MEMORY_FILE_PATH = ".project-memory/mcp/memory.json"

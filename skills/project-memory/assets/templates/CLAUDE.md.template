@@ -1,7 +1,7 @@
 # Project: [PROJECT NAME]
 
-> This file is automatically read by Claude Code at the start of every new session.
-> Keep it concise. Details live in `.ai-memory/memory/` (or `.claude/memory/` if Codex is not used).
+> This file is automatically read by Claude Code at every new session.
+> Keep it concise. Details live in `.project-memory/memory/`.
 
 ## Stack
 - **Backend**: [e.g. Laravel 11, PHP 8.3]
@@ -32,20 +32,25 @@ Request → Controller → Service → Repository → Model
 ```
 
 ## Memory Files (read when you need details)
-- **Module map**: `.ai-memory/memory/modules.md`
-- **Architecture & decisions**: `.ai-memory/memory/architecture.md`
-- **Conventions**: `.ai-memory/memory/conventions.md`
-- **Active tasks**: `.ai-memory/tasks/active.md`
+- **Module map**: `.project-memory/memory/modules.md`
+- **Architecture & decisions**: `.project-memory/memory/architecture.md`
+- **Conventions**: `.project-memory/memory/conventions.md`
+- **Active tasks**: `.project-memory/tasks/active/` (one file per developer)
+
+## MCP Memory
+
+This project uses a file-based MCP Memory Server.
+Memory file: `.project-memory/mcp/memory.json` (committed to repo, shared by all agents).
+
+After every task, you MUST:
+1. Save key decisions and findings via `memory_add_observations`
+2. Create or update `.project-memory/tasks/active/[your-name]-[task-slug].md`
+3. If task is done → append a one-line summary to `.project-memory/tasks/done.md`, delete the active file
+4. Commit all `.project-memory/` changes together with the code
+
+Active task file naming: `[developer-name]-[task-slug].md`
+Examples: `alice-order-refactor.md`, `bob-payment-v2.md`
 
 ## Recent Changes
-<!-- Update this after every task! Format: [YYYY-MM-DD] Short description by @developer -->
+<!-- Update after every significant task! Format: [YYYY-MM-DD] Description by @developer -->
 - [YYYY-MM-DD] Initial project memory setup
-
-## Instructions for AI Agent
-
-After completing every task:
-1. Update the "Recent Changes" section in this file
-2. If there are architecture changes → update `.ai-memory/memory/architecture.md`
-3. If there are new modules → update `.ai-memory/memory/modules.md`
-4. If a task is unfinished → record progress in `.ai-memory/tasks/active.md`
-5. Commit all memory changes together with the code

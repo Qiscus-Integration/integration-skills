@@ -1,0 +1,28 @@
+#!/bin/sh
+# scripts/hooks/pre-commit
+#
+# Reminds developers to update AI memory when significant source changes are made.
+# Installed via: make setup
+#
+# To skip this check for a specific commit:
+#   git commit --no-verify
+
+SRC_CHANGED=$(git diff --cached --name-only | grep -c "^app/\|^src/\|^resources/" || true)
+MEM_CHANGED=$(git diff --cached --name-only | grep -c "^\.ai-memory/" || true)
+
+if [ "$SRC_CHANGED" -gt 2 ] && [ "$MEM_CHANGED" -eq 0 ]; then
+  echo ""
+  echo "⚠️  AI Memory Reminder"
+  echo "   You changed $SRC_CHANGED source files but haven't updated .ai-memory/"
+  echo ""
+  echo "   Consider:"
+  echo "   - Updating your active task: .ai-memory/tasks/active/[your-name]-[task].md"
+  echo "   - Saving decisions to MCP memory via your AI agent"
+  echo ""
+  echo "   Press Enter to commit anyway, or Ctrl+C to cancel and update memory first."
+  echo ""
+  # Read from terminal directly (works even when stdin is piped)
+  read response < /dev/tty
+fi
+
+exit 0

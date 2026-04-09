@@ -33,7 +33,7 @@ feature/order-v2 branch:
 
 Split `active.md` per developer to avoid conflicts:
 
-```bash
+```bas
 .claude/tasks/
 ├── active-alice.md      ← Owned by @alice
 ├── active-bob.md        ← Owned by @bob

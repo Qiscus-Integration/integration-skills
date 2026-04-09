@@ -12,7 +12,7 @@ Increase the limit in `.codex/config.toml` if needed:
 project_doc_max_bytes = 65536   # 64 KiB
 ```
 
-Keep your main AGENTS.md concise and use pointer files (`See: .ai-memory/memory/modules.md`)
+Keep your main AGENTS.md concise and use pointer files (`See: .project-memory/memory/modules.md`)
 for detailed content.
 
 ## Global vs Project Scope
@@ -87,7 +87,7 @@ command = "npx"
 args = ["-y", "@modelcontextprotocol/server-memory"]
 
 [mcp_servers.memory.env]
-MEMORY_FILE_PATH = ".ai-memory/mcp-memory.json"
+MEMORY_FILE_PATH = ".project-memory/mcp-memory.json"
 ```
 
 Or use the CLI:
