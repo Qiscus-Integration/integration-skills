@@ -95,7 +95,6 @@ After installation, invoke a skill with `/skill-name`:
 
 ```text
 /commit
-/review-pr
 ```
 
 ### Codex
@@ -104,7 +103,6 @@ Skills are automatically available when Codex starts. You can also invoke explic
 
 ```text
 $commit
-$review-pr
 ```
 
 ---
