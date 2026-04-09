@@ -1,0 +1,12 @@
+# agents/openai.yaml — metadata for Codex UI (optional, ignored by Claude Code)
+# Remove this file if you don't need Codex support
+
+interface:
+  display_name: "PRD Generator"
+  short_description: "Generate PRDs, flows, and user stories from feature input"
+  default_prompt: "Use $prd-plan to generate a complete PRD, expand the system flow, and transform it into user stories."
+
+policy:
+  # true  = Codex can invoke this skill automatically based on context
+  # false = user must invoke explicitly with $skill-name
+  allow_implicit_invocation: true

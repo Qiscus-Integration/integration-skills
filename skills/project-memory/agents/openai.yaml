@@ -1,0 +1,7 @@
+interface:
+  display_name: "Project Memory Setup"
+  short_description: "Create shared AI project memory files"
+  default_prompt: "Use $project-memory to create or update shared AI memory files such as AGENTS.md, CLAUDE.md, and repo-based memory folders."
+
+policy:
+  allow_implicit_invocation: true

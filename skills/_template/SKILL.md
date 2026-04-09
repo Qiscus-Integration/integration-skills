@@ -10,15 +10,21 @@ description: >
 
 ## Overview
 
-Brief explanation of what this skill does.
+Brief explanation of what this skill does and the outcome it should produce.
 
-## How It Works
+## Workflow
 
-Describe the steps this skill performs.
+Adapt these steps to the task. Keep them concrete and execution-oriented.
 
 1. First step
 2. Second step
 3. Third step
+
+## Output
+
+Describe the expected artifact, format, or side effects from this skill.
+- Example: create a Markdown doc at `docs/features/[slug]/prd.md`
+- Example: update an existing config file and summarize follow-up checks
 
 ## Usage Examples
 
@@ -38,9 +44,21 @@ Describe the steps this skill performs.
 
 - Add important notes here
 - Limitations or things to be aware of
+- Mention any important assumptions or decision rules
+
+## Companion Files
+
+Use this section when the skill depends on bundled references, templates, or helper scripts.
+
+| Path | Purpose |
+|------|---------|
+| `references/example-reference.md` | Optional reference material to open when the task needs deeper rules or examples |
+| `assets/templates/example-output.md.template` | Reusable output template that should be adapted to the user's request |
+| `agents/openai.yaml` | Optional metadata for Codex UI |
 
 ## Bundled Resources
 
-- List any optional companion files here, for example `references/api-docs.md` or `scripts/helper.py`.
-- Codex may load companion files when explicitly instructed, but do not assume they are already in context.
-- Any required reference or script must be opened explicitly or its essential guidance must be repeated in this `SKILL.md`.
+- `references/` contains documentation loaded on demand. Do not assume these files are already in context.
+- `assets/templates/` contains reusable output skeletons. Open and adapt them instead of rewriting the same structure each time.
+- `scripts/` is optional for helper automation. If a script is required, mention when to run it and what it produces.
+- Any required external guidance must either be repeated here or explicitly opened by the agent before use.

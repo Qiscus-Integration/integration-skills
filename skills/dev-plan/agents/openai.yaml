@@ -1,0 +1,12 @@
+# agents/openai.yaml — metadata for Codex UI (optional, ignored by Claude Code)
+# Remove this file if you don't need Codex support
+
+interface:
+  display_name: "Dev Execute Planner"
+  short_description: "Generate developer implementation plan from PRD, design spec, and QA test plan"
+  default_prompt: "Use $dev-plan to generate a complete implementation plan including task breakdown, architecture decisions, database migrations, API implementation guide, frontend plan, and definition of done from the PRD and design artifacts."
+
+policy:
+  # true  = Codex can invoke this skill automatically based on context
+  # false = user must invoke explicitly with $skill-name
+  allow_implicit_invocation: false

@@ -1,0 +1,43 @@
+# Active Tasks
+
+> This file is used for context handoff between developers and between AI Agent sessions.
+> One task per section. Remove a task once it's done and move it to `done.md`.
+
+---
+
+## [TASK TITLE, e.g. Feature: Multi-warehouse Stock Transfer]
+
+**Status**: 🔄 In Progress  
+**Developer**: @[name] (or "Claude session on @[name]'s machine")  
+**Branch**: `feature/[branch-name]`  
+**Started**: [YYYY-MM-DD]  
+**Target completion**: [YYYY-MM-DD or "TBD"]
+
+### Progress
+- [x] [Completed step]
+- [x] [Completed step]
+- [ ] [Pending step]
+- [ ] [Pending step]
+
+### Files Changed
+```
+app/Models/StockTransfer.php          ← newly created
+database/migrations/2025_04_09_...   ← newly created
+app/Services/InventoryService.php     ← modified (added adjustStock method)
+```
+
+### Technical Decisions Made
+- [e.g. Using DB transaction because two warehouses are updated simultaneously]
+- [e.g. Not using events — synchronous response is required here]
+
+### Gotchas / Watch Out For
+- [e.g. Bug in StockRepository::findByWarehouse() when warehouse_id is null — not fixed yet]
+- [e.g. Migration must be run before testing]
+
+### Next Steps (for the next developer / session)
+1. [First concrete step to take]
+2. [Next concrete step]
+
+---
+
+<!-- Add new tasks below using the same format -->

@@ -13,7 +13,7 @@ Also activates when the user asks to build, review, or refactor backend code in 
 
 ## Scope
 
-This skill applies to the Rails monolith stack. For Rails-specific conventions used by `$dev-execute`, see [dev-execute.md](dev-execute.md) and `skills/dev-execute/references/stack-rails-monolith.md`.
+This skill applies to the Rails monolith stack. For Rails-specific conventions used by `$dev-plan`, see [dev-plan.md](dev-plan.md) and `skills/dev-plan/references/stack-rails-monolith.md`.
 
 ---
 

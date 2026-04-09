@@ -1,0 +1,71 @@
+# Module Map
+
+> Maps every domain/feature to concrete files in the codebase.
+> Update whenever a new module is added or a major refactor happens.
+
+---
+
+## [Domain Name 1, e.g. Order Management]
+
+| Layer | Path |
+|-------|------|
+| Controller | `app/Http/Controllers/OrderController.php` |
+| Service | `app/Services/OrderService.php` |
+| Repository | `app/Repositories/OrderRepository.php` |
+| Model | `app/Models/Order.php`, `app/Models/OrderItem.php` |
+| Events | `app/Events/OrderCreated.php` |
+| Jobs | `app/Jobs/ProcessOrder.php` |
+| Tests | `tests/Feature/OrderTest.php` |
+
+**Domain rules:**
+- [e.g. Status transitions MUST go through `OrderService::transition()` — never update status directly]
+- [e.g. OrderItem cannot be deleted once the Order is `confirmed`]
+
+---
+
+## [Domain Name 2, e.g. Inventory]
+
+| Layer | Path |
+|-------|------|
+| Controller | `app/Http/Controllers/InventoryController.php` |
+| Service | `app/Services/InventoryService.php` |
+| Model | `app/Models/Product.php`, `app/Models/Stock.php` |
+| Tests | `tests/Feature/InventoryTest.php` |
+
+**Domain rules:**
+- [e.g. Negative stock is allowed for pre-order items]
+- [e.g. All stock changes must go through `InventoryService::adjustStock()`]
+
+---
+
+## [Domain Name 3, e.g. Auth & User]
+
+| Layer | Path |
+|-------|------|
+| Controller | `app/Http/Controllers/AuthController.php` |
+| Middleware | `app/Http/Middleware/RoleMiddleware.php` |
+| Model | `app/Models/User.php` |
+
+**Available roles:** `admin`, `[role2]`, `[role3]`
+
+**Domain rules:**
+- [e.g. Use Gate/Policy for authorization — do not hardcode roles in controllers]
+
+---
+
+## Frontend Pages / Routes
+<!-- Fill in if there is a frontend (React/Vue/Blade) -->
+
+| Page | File Path | Route |
+|------|-----------|-------|
+| Dashboard | `resources/js/pages/Dashboard.jsx` | `/dashboard` |
+| [Other page] | `[path]` | `[route]` |
+
+---
+
+## Shared Utilities
+
+| Utility | Path | Purpose |
+|---------|------|---------|
+| [e.g. ApiResponse] | `app/Helpers/ApiResponse.php` | Standardized JSON response format |
+| [e.g. DateHelper] | `app/Helpers/DateHelper.php` | Timezone conversion |
