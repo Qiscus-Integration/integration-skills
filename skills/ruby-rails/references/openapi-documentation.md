@@ -9,8 +9,9 @@
 
 ## Output location
 
-- Store API documentation in `docs/openapi.yml`.
+- Check where the project already stores API documentation (commonly `docs/openapi.yml`, `swagger/`, or `doc/`).
 - Update the existing file when it already exists instead of creating duplicate API docs in other formats.
+- If no API documentation exists yet, default to `docs/openapi.yml`.
 
 ## What to document
 
@@ -23,7 +24,7 @@
 
 ## Schema guidance
 
-- Keep field names aligned with the actual JSON returned by the controller or Jbuilder templates.
+- Keep field names aligned with the actual JSON returned by the controller or serialization layer.
 - Reuse schema components when the same payload shape appears in multiple endpoints.
 - Mark required fields clearly.
 - Include enum values when the API accepts or returns a finite set of values.
@@ -31,8 +32,8 @@
 ## Good workflow
 
 1. Implement or update the endpoint.
-2. Verify the real request and response contract from controller code, serializers, Jbuilder, and request specs.
-3. Update `docs/openapi.yml` to match the implemented behavior.
+2. Verify the real request and response contract from controller code, serializers, and request specs.
+3. Update the API documentation file to match the implemented behavior.
 4. Make sure error responses and validation failures are documented when they matter to consumers.
 
 ## Review checklist
@@ -41,4 +42,4 @@
 - Do the request and response schemas match the implemented code?
 - Are status codes accurate?
 - Are auth or permission-related failures documented where needed?
-- Would another developer be able to integrate from `docs/openapi.yml` without reading controller code first?
+- Would another developer be able to integrate from the API documentation without reading controller code first?

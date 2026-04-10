@@ -2,22 +2,26 @@
 
 ## Runtime stack
 
-- Ruby 3.1.3
-- Rails 7.0.x
-- Puma
+Detect actual versions from `Gemfile.lock` and `.ruby-version` before making version-specific recommendations.
+
+- Ruby (version from `.ruby-version` or `Gemfile`)
+- Rails (version from `Gemfile.lock`)
+- Puma (or the project's app server)
 - PostgreSQL
-- Redis
-- Sidekiq and sidekiq-scheduler
+- Redis (if present)
+- Sidekiq or other background job processor (if present)
 
 ## Key gems and patterns
 
-- `pundit` for authorization
-- `avo` for admin UI
-- `jbuilder` for JSON views
-- `view_component` for reusable UI building blocks
-- `strong_migrations` for migration safety
-- `noticed` for notifications
-- `omniauth` and JWT-related authentication helpers
+Check `Gemfile` to confirm which gems are actually used in the project. Common patterns include:
+
+- Authorization: `pundit`, `cancancan`, or similar
+- Admin UI: `avo`, `activeadmin`, `rails_admin` (if present)
+- JSON rendering: `jbuilder`, `active_model_serializers`, `blueprinter`, or plain `render json:`
+- UI components: `view_component` (if present)
+- Migration safety: `strong_migrations` (if present)
+- Notifications: `noticed` (if present)
+- Authentication: `devise`, `omniauth`, JWT-based, or custom
 
 ## Common app folders
 
@@ -48,3 +52,4 @@
 - Review performance whenever query paths change.
 - Look for N+1 queries and missing eager loading on list or nested data flows.
 - Keep request-time work small and move slow side effects to jobs when appropriate.
+- Write tests for every new feature or behavior change — no code without spec coverage.
