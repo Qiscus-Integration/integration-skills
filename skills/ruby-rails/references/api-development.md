@@ -4,7 +4,7 @@
 
 - Building or changing JSON endpoints
 - Reviewing controller responses and parameter handling
-- Working with Jbuilder or other response shaping patterns
+- Working with JSON serialization (Jbuilder, ActiveModelSerializers, Blueprinter, or plain `render json:`)
 - Checking authentication and authorization boundaries
 
 ## Controller guidance
@@ -17,7 +17,7 @@
 ## Response design
 
 - Match the repository's existing JSON shape before inventing a new contract.
-- Use Jbuilder consistently where that is already the repository pattern.
+- Use the project's existing serialization approach consistently (Jbuilder, serializers, or plain `render json:`).
 - Keep success and error payloads predictable.
 - Be careful when changing response structure because clients may depend on it.
 

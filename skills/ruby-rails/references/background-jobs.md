@@ -2,7 +2,7 @@
 
 ## Use this when
 
-- Adding or changing Sidekiq-backed jobs
+- Adding or changing background jobs (Sidekiq, GoodJob, Solid Queue, or Active Job-based)
 - Moving work out of the request cycle
 - Reviewing retries, idempotency, and failure handling
 - Coordinating mailers, notifiers, or expensive external calls
