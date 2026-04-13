@@ -29,11 +29,8 @@ type: template
 | 17 | TESTER | Leave blank — filled during execution |
 | 18 | SCREEN CAPTURE | Leave blank — filled during execution |
 | 19 | NOTE | Leave blank — additional notes column |
-| 20 | (blank) | Leave blank |
 | 21 | TOTAL TEST CASE | First row only: label "TOTAL TEST CASE" in col 21, count in col 22 |
 | 22 | (count) | Total count of test cases |
-| 23 | (blank) | Leave blank |
-| 24 | TOTAL TEST CASE | Repeat label in col 24 for formula reference |
 
 ## CSV Header Row (exact)
 
