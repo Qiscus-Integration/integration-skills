@@ -6,6 +6,26 @@ $Branch  = "main"
 $RawBase = "https://raw.githubusercontent.com/$Owner/$Repo/$Branch"
 $ApiBase = "https://api.github.com/repos/$Owner/$Repo/contents/skills?ref=$Branch"
 
+# ─── Security: Path sanitization ─────────────────────────────────────────────
+
+function Test-SafeName {
+    param([string]$Name, [string]$Label = "name")
+    if ($Name -notmatch '^[a-zA-Z0-9_-]+$') {
+        Write-ErrorMessage "Invalid ${Label}: '$Name' — contains unsafe characters. Skipping."
+        return $false
+    }
+    return $true
+}
+
+function Test-SafePath {
+    param([string]$Path)
+    if ($Path -match '\.\.' -or $Path.StartsWith('/') -or $Path.StartsWith('\')) {
+        Write-ErrorMessage "Unsafe path detected: '$Path' — skipping."
+        return $false
+    }
+    return $true
+}
+
 function Write-Success($Message) {
     Write-Host "[OK] $Message" -ForegroundColor Green
 }
@@ -244,6 +264,7 @@ function Get-SkillNames {
     $response = Invoke-RestMethod -Uri $ApiBase
     return $response |
         Where-Object { $_.type -eq "dir" -and $_.name -ne "_template" } |
+        Where-Object { Test-SafeName -Name $_.name -Label "skill name" } |
         Sort-Object name |
         Select-Object -ExpandProperty name
 }
@@ -255,6 +276,10 @@ function Install-SkillFile {
         [string]$RelPath,
         [string]$ScriptRoot
     )
+
+    # Validate inputs against path traversal
+    if (-not (Test-SafeName -Name $Skill -Label "skill name")) { return $false }
+    if (-not (Test-SafePath -Path $RelPath)) { return $false }
 
     $dest      = Join-Path $DestinationRoot "$Skill\$RelPath"
     $destDir   = Split-Path $dest -Parent
