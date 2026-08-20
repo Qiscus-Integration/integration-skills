@@ -425,6 +425,7 @@ If `output_format = csv` or `output_format = both`:
   - `ENV`: `Staging` (default for new features)
   - Columns 12–19 (execution fields): leave blank — filled by tester
   - Header row columns 21–24: `TOTAL TEST CASE,{COUNT},,TOTAL TEST CASE`
+  - `Group` (column 25, appended after the TOTAL block): the **parallel-execution lane** for the QA Agent engine. Cases sharing a Group value run **sequentially in row order in one browser session** — use ONE group for any dependent sequence (wizard stages, create-then-verify chains, cases that reuse data an earlier case created). Cases with **different** groups are fully independent and the engine may run them **in parallel**. Use a short kebab-case slug per independent feature/flow (e.g. `kanban-board`, `ticket-filters`). NEVER give dependent cases different groups. Leave blank only when unsure — blank joins one shared sequential lane (safe but slow).
 - Save CSV to `docs/features/[feature-slug]/qa-testplan.csv`
 - If `output_format = both`, also write the markdown file.
 

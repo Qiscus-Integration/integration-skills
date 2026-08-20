@@ -31,11 +31,12 @@ type: template
 | 19 | NOTE | Leave blank — additional notes column |
 | 21 | TOTAL TEST CASE | First row only: label "TOTAL TEST CASE" in col 21, count in col 22 |
 | 22 | (count) | Total count of test cases |
+| 25 | Group | Execution lane for the QA Agent engine: same value = dependent cases run sequentially in one browser session; different values = independent, may run in parallel. Short kebab-case slug per independent feature/flow. |
 
 ## CSV Header Row (exact)
 
 ```bash
-No,Key Feature in TRA/ SRS,Scenario,Description Scenario,PREREQUISITE,CASE TYPE,Test Case,Test Data,Step,EXPECTED RESULT,ENV,,Actual Result,Severity,Notes,TEST DATE,TESTER,SCREEN CAPTURE,NOTE,,TOTAL TEST CASE,{COUNT},,TOTAL TEST CASE
+No,Key Feature in TRA/ SRS,Scenario,Description Scenario,PREREQUISITE,CASE TYPE,Test Case,Test Data,Step,EXPECTED RESULT,ENV,,Actual Result,Severity,Notes,TEST DATE,TESTER,SCREEN CAPTURE,NOTE,,TOTAL TEST CASE,{COUNT},,TOTAL TEST CASE,Group
 ```
 
 ## Step Format Rules
@@ -117,3 +118,13 @@ When `output_format = csv`:
 - Markdown: `docs/features/[feature-slug]/qa-testplan.md`
 - CSV: `docs/features/[feature-slug]/qa-testplan.csv`
 - Both files should be produced when `output_format = csv` or `output_format = both`
+
+## Group Rules (parallel execution lanes)
+
+- `Group` tells the QA Agent engine which cases may run in parallel:
+  - **Same group** = a dependent chain — runs strictly in row order, in ONE shared browser session. Put ALL stages of one wizard/journey (and any case that consumes data an earlier case created) in the same group.
+  - **Different groups** = fully independent — the engine may execute them in parallel, each with its own browser and its own login.
+- Use a short kebab-case slug derived from the feature/flow (e.g. `kanban-board`, `ticket-filters`, `sla-settings`).
+- Every independent scenario cluster should get its OWN group — the more (honest) groups, the more parallelism.
+- If two cases even *might* depend on each other, keep them in one group. A wrong merge only costs speed; a wrong split breaks the dependent case.
+- Blank group = one shared sequential lane (safe default, no parallelism).
