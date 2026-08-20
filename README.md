@@ -52,6 +52,8 @@ curl -fsSL https://raw.githubusercontent.com/Qiscus-Integration/integration-skil
 irm https://raw.githubusercontent.com/Qiscus-Integration/integration-skills/main/install.ps1 | iex
 ```
 
+> **Security note:** For maximum security, clone the repo first and run the installer locally instead of piping from curl. See [SECURITY.md](SECURITY.md) for details.
+
 The installer will ask:
 
 1. Which AI tool to install for — Claude Code, Codex, or both

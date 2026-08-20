@@ -13,6 +13,29 @@ RAW_BASE="https://raw.githubusercontent.com/$OWNER/$REPO/$BRANCH"
 API_BASE="https://api.github.com/repos/$OWNER/$REPO/contents/skills?ref=$BRANCH"
 TREE_API="https://api.github.com/repos/$OWNER/$REPO/git/trees/$BRANCH?recursive=1"
 
+# ─── Security: Path sanitization ─────────────────────────────────────────────
+
+# Validate that a name contains only safe characters (alphanumeric, hyphen, underscore)
+# Prevents path traversal via malicious skill names from GitHub API responses
+validate_safe_name() {
+  local name="$1" label="${2:-name}"
+  if [[ ! "$name" =~ ^[a-zA-Z0-9_-]+$ ]]; then
+    print_error "Invalid $label: '$name' — contains unsafe characters. Skipping."
+    return 1
+  fi
+  return 0
+}
+
+# Validate that a relative file path contains no traversal sequences
+validate_safe_path() {
+  local path="$1"
+  if [[ "$path" == *".."* ]] || [[ "$path" == /* ]]; then
+    print_error "Unsafe path detected: '$path' — skipping."
+    return 1
+  fi
+  return 0
+}
+
 # ─── Colors ───────────────────────────────────────────────────────────────────
 
 RED='\033[0;31m'
@@ -228,6 +251,7 @@ if [[ -d "$SCRIPT_DIR/skills" ]]; then
   while IFS= read -r -d '' dir; do
     name="$(basename "$dir")"
     [[ "$name" == "_template" ]] && continue
+    validate_safe_name "$name" "skill name" || continue
     available_skills+=("$name")
   done < <(find "$SCRIPT_DIR/skills" -mindepth 1 -maxdepth 1 -type d -print0 | sort -z)
   print_info "Using local skills."
@@ -239,7 +263,9 @@ else
   if [[ -n "$api_response" ]]; then
     while IFS= read -r name; do
       [[ "$name" == "_template" ]] && continue
-      [[ -n "$name" ]] && available_skills+=("$name")
+      [[ -z "$name" ]] && continue
+      validate_safe_name "$name" "skill name" || continue
+      available_skills+=("$name")
     done < <(
       printf '%s\n' "$api_response" \
         | awk 'BEGIN { RS="}," } /"type": "dir"/ { if (match($0, /"name": "[^"]+"/)) { value = substr($0, RSTART + 9, RLENGTH - 10); print value } }' \
@@ -276,8 +302,10 @@ echo ""
 
 _copy_local_skill_tree() {
   local skill="$1" dest_dir="$2"
-  local source_dir="$SCRIPT_DIR/skills/$skill"
 
+  validate_safe_name "$skill" "skill name" || return 1
+
+  local source_dir="$SCRIPT_DIR/skills/$skill"
   [[ -d "$source_dir" ]] || return 1
 
   mkdir -p "$dest_dir"
@@ -309,10 +337,14 @@ _download_remote_skill_tree() {
   local rel_path dest
   local downloaded_any=false
 
+  validate_safe_name "$skill" "skill name" || return 1
   mkdir -p "$dest_dir/$skill"
 
   while IFS= read -r rel_path; do
     [[ -n "$rel_path" ]] || continue
+    # Reject paths with traversal sequences or absolute paths
+    validate_safe_path "$rel_path" || continue
+
     dest="$dest_dir/$skill/$rel_path"
     mkdir -p "$(dirname "$dest")"
 
