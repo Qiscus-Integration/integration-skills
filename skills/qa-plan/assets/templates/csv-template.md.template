@@ -128,3 +128,4 @@ When `output_format = csv`:
 - Every independent scenario cluster should get its OWN group — the more (honest) groups, the more parallelism.
 - If two cases even *might* depend on each other, keep them in one group. A wrong merge only costs speed; a wrong split breaks the dependent case.
 - Blank group = one shared sequential lane (safe default, no parallelism).
+- Grouping is necessary but not sufficient for speed: the engine only runs as many groups concurrently as its `case_parallelism` setting allows (an admin-configured, per-deployment value — not something this CSV controls). Groups still keep results correct at any parallelism level; more (honest) groups just translate into wall-clock speed once that setting is raised above 1.
